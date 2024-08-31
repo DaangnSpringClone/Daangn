@@ -2,6 +2,11 @@ package springstudy.daangnclone.common.exception;
 
 import lombok.Getter;
 
+/**
+ * <h2>Error Code</h2>
+ * <P>error status는 responseCode + index number</P>
+ * dass
+ */
 @Getter
 public enum ErrorCode {
 
@@ -18,10 +23,6 @@ public enum ErrorCode {
     ErrorCode(int status, String message) {
         this.status = status;
         this.message = message;
-    }
-
-    public int getResponseCode() {
-        return status / 1000;
     }
 
 }

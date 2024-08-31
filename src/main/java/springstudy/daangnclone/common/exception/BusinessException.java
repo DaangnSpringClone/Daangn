@@ -8,10 +8,14 @@ public class BusinessException extends RuntimeException {
     private final int responseCode;
     private final int status;
 
-    public BusinessException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.status = errorCode.getStatus();
-        this.responseCode = errorCode.getResponseCode();
+    public BusinessException(int status, String message) {
+        super(message);
+        this.status = status;
+        this.responseCode = calculateResponseCode();
+    }
+
+    private int calculateResponseCode() {
+        return this.status / 1000;
     }
 
 }
