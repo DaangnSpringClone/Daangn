@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
         //회원가입 로직
         //유효성 여부 확인 로직(spring validation이 해주므로 생략)
         //기존 회원 가입 여부 확인. 기존 회원인 경우 예외 발생
-        userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
+        userRepository.findByEmail(user.email()).ifPresent(u -> {
             throw new UserAlreadyExistException(ErrorCode.USER_ALREADY_EXISTS);
         });
 
