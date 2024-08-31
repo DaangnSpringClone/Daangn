@@ -14,7 +14,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(404001, "User not found"),
 
     //409 Conflict
-    DUPLICATE_USER(409001, "User already exists")
+    USER_ALREADY_EXISTS(409001, "User already exists")
     ;
 
     private final int status;
