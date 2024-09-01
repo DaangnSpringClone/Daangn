@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import springstudy.daangnclone.common.exception.ErrorCode;
 import springstudy.daangnclone.common.service.DateHolder;
+import springstudy.daangnclone.common.service.PasswordEncoder;
 import springstudy.daangnclone.user.controller.port.UserService;
 import springstudy.daangnclone.user.domain.User;
 import springstudy.daangnclone.user.domain.UserCreate;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final DateHolder dateHolder;
+    private final PasswordEncoder passwordEncoder;
 
     //join
     public User join(UserCreate userCreate) {
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
         //회원가입 처리
         //회원가입 성공시 User 객체 반환
         //FIXME: 로그인 처리 바로 할지 말지 생각해보기
-        return userRepository.save(User.from(userCreate, dateHolder));
+        return userRepository.save(User.from(userCreate, dateHolder, passwordEncoder));
     }
 
     //login

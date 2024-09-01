@@ -2,6 +2,7 @@ package springstudy.daangnclone.user.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import springstudy.daangnclone.common.service.PasswordEncoder;
 import springstudy.daangnclone.mock.FakeDateHolder;
 import springstudy.daangnclone.mock.FakeUserRepository;
 import springstudy.daangnclone.user.domain.User;
