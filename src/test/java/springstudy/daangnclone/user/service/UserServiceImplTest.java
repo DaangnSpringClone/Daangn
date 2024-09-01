@@ -2,8 +2,8 @@ package springstudy.daangnclone.user.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import springstudy.daangnclone.common.service.PasswordEncoder;
 import springstudy.daangnclone.mock.FakeDateHolder;
+import springstudy.daangnclone.mock.FakePasswordEncoder;
 import springstudy.daangnclone.mock.FakeUserRepository;
 import springstudy.daangnclone.user.domain.User;
 import springstudy.daangnclone.user.domain.UserCreate;
@@ -25,7 +25,8 @@ class UserServiceImplTest {
         //given
         FakeUserRepository userRepository = new FakeUserRepository();
         FakeDateHolder dateHolder = new FakeDateHolder(LocalDateTime.now());
-        UserServiceImpl userService = new UserServiceImpl(userRepository, dateHolder);
+        FakePasswordEncoder passwordEncoder = new FakePasswordEncoder();
+        UserServiceImpl userService = new UserServiceImpl(userRepository, dateHolder, passwordEncoder);
         UserCreate joinUser = UserCreate.builder()
                 .name("hyun")
                 .email("test@naver.com")
@@ -39,7 +40,7 @@ class UserServiceImplTest {
         assertThat(user.id()).isEqualTo(1L);
         assertThat(user.name()).isEqualTo("hyun");
         assertThat(user.email()).isEqualTo("test@naver.com");
-        assertThat(user.password()).isEqualTo("1234");
+        assertThat(user.password()).isEqualTo(passwordEncoder.encode("1234"));
         assertThat(user.phoneNumber()).isEqualTo("01011114444");
         assertThat(user.birthDate()).isEqualTo(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         assertThat(user.address()).isEqualTo("seoul");
@@ -53,7 +54,8 @@ class UserServiceImplTest {
         //given
         FakeUserRepository userRepository = new FakeUserRepository();
         FakeDateHolder fakeDateHolder = new FakeDateHolder(LocalDateTime.now());
-        UserServiceImpl userService = new UserServiceImpl(userRepository, fakeDateHolder);
+        FakePasswordEncoder passwordEncoder = new FakePasswordEncoder();
+        UserServiceImpl userService = new UserServiceImpl(userRepository, fakeDateHolder, passwordEncoder);
         userRepository.save(User.builder()
                 .id(1L)
                 .name("hyun")
