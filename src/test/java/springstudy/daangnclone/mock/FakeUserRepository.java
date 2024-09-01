@@ -1,9 +1,9 @@
 package springstudy.daangnclone.mock;
 
 import springstudy.daangnclone.user.domain.User;
+import springstudy.daangnclone.user.domain.UserStatus;
 import springstudy.daangnclone.user.service.port.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +25,8 @@ public class FakeUserRepository implements UserRepository {
                     .phoneNumber(user.phoneNumber())
                     .birthDate(user.birthDate())
                     .address(user.address())
-                    .createdAt(LocalDateTime.now())
+                    .status(UserStatus.ACTIVE)
+                    .createdAt(user.createdAt())
                     .build();
             data.add(createUser);
             return createUser;
