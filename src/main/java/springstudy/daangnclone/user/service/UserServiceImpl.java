@@ -3,8 +3,10 @@ package springstudy.daangnclone.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import springstudy.daangnclone.common.exception.ErrorCode;
+import springstudy.daangnclone.common.service.DateHolder;
 import springstudy.daangnclone.user.controller.port.UserService;
 import springstudy.daangnclone.user.domain.User;
+import springstudy.daangnclone.user.domain.UserCreate;
 import springstudy.daangnclone.user.exception.UserAlreadyExistException;
 import springstudy.daangnclone.user.service.port.UserRepository;
 
@@ -13,20 +15,21 @@ import springstudy.daangnclone.user.service.port.UserRepository;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final DateHolder dateHolder;
 
     //join
-    public User join(User user) {
+    public User join(UserCreate userCreate) {
         //회원가입 로직
         //유효성 여부 확인 로직(spring validation이 해주므로 생략)
         //기존 회원 가입 여부 확인. 기존 회원인 경우 예외 발생
-        userRepository.findByEmail(user.email()).ifPresent(u -> {
+        userRepository.findByEmail(userCreate.email()).ifPresent(u -> {
             throw new UserAlreadyExistException(ErrorCode.USER_ALREADY_EXISTS);
         });
 
         //회원가입 처리
         //회원가입 성공시 User 객체 반환
         //FIXME: 로그인 처리 바로 할지 말지 생각해보기
-        return userRepository.save(user);
+        return userRepository.save(User.from(userCreate, dateHolder));
     }
 
     //login

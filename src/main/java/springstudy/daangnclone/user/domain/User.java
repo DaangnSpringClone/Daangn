@@ -2,6 +2,7 @@ package springstudy.daangnclone.user.domain;
 
 
 import lombok.Builder;
+import springstudy.daangnclone.common.service.DateHolder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,5 +13,17 @@ public record User(String address, LocalDate birthDate, LocalDateTime createdAt,
 
     @Builder
     public User {
+    }
+
+    public static User from(UserCreate userCreate, DateHolder dateHolder) {
+        return User.builder()
+                .name(userCreate.name())
+                .email(userCreate.email())
+                .password(userCreate.password())
+                .phoneNumber(userCreate.phoneNumber())
+                .birthDate(userCreate.birthDate())
+                .address(userCreate.address())
+                .createdAt(dateHolder.now())
+                .build();
     }
 }
