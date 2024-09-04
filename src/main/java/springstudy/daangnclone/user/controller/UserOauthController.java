@@ -15,7 +15,7 @@ public class UserOauthController {
 
     private final UserOauthService userOauthService;
 
-    @GetMapping("/longin")
+    @GetMapping("/login")
     public OauthUserInfoResponse oauthLogin(@RequestParam String code) {
         return userOauthService.snsLogin(code);
     }
