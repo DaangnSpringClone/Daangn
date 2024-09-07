@@ -1,9 +1,6 @@
 package springstudy.daangnclone.core.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,7 +32,13 @@ public class User {
     private LocalDate birthDate;
     @Column(length = 50)
     private String address;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
+    // naver
+    private String provider;
+    // 네이버 로그인 한 유저의 고유 ID 가 들어감
+    private String providerId;
     public void updatePassword(String password) {
         this.password = password;
     }
